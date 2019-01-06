@@ -1,68 +1,37 @@
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+## OAuth 2.0 
+ client app - Auth request  
+ auth grant returned to the app 
+ step3 - send the auth grant to the Auth Server (Provider)
+ step4 - return the access token
 
-## Available Scripts
+Oauth is for authorization - That is to decide what resource to provide access to
 
-In the project directory, you can run:
+Open ID Connect is for authentication - who has the access
 
-### `npm start`
+uses Access Token (usually JWT) - Token contains all the scopes (permissions)
 
-Runs the app in the development mode.<br>
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
 
-The page will reload if you make edits.<br>
-You will also see any lint errors in the console.
+### Implict mode for SPA
 
-### `npm test`
+If the Application is a Single-Page Application (meaning an application running in a 
+browser using a scripting language like JavaScript), then the Single-Page 
+Login Flow (Implicit Grant) should be used. In this case, instead of 
+getting an authorization code that needs to be exchanged for an Access 
+Token, the Application directly retrieves an Access Token. On 
+the plus side, this is more efficient since it reduces the 
+number of round trips required to get an Access Token. However, a 
+security consideration is that the Access Token is exposed on the client side. 
+Also, note that this flow does not return a Refresh Token because the browser cannot keep it private 
+(read the SPAs and Refresh Tokens panel for a workaround).
 
-Launches the test runner in the interactive watch mode.<br>
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+App directs the browser to the Auth0 sign-in 
+Auth0 redirects to your app, at the callback URl you chose
+Your app reads the token from the URL
 
-### `npm run build`
 
-Builds the app for production to the `build` folder.<br>
-It correctly bundles React in production mode and optimizes the build for the best performance.
+## Open ID Connect - Sits on top of oauth 2.0
+Identity Provider - Google or Facebook
+Relying party - Mostly our app
 
-The build is minified and the filenames include the hashes.<br>
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
-
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (Webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
-
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/code-splitting
-
-### Analyzing the Bundle Size
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size
-
-### Making a Progressive Web App
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app
-
-### Advanced Configuration
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/advanced-configuration
-
-### Deployment
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/deployment
-
-### `npm run build` fails to minify
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify
+Uses Identity Token (JWT)
+The Id token contains a variety of user data
